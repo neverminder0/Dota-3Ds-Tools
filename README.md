@@ -1,6 +1,7 @@
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/neverminder0/Dota-3Ds-Tools/blob/main/README.md)
 [![ru](https://img.shields.io/badge/lang-ru-green.svg)](https://github.com/neverminder0/Dota-3Ds-Tools/blob/main/README.ru.md)
-# Dota 3Ds Tools for Blender [!([https://github.com/tandpfun/skill-icons/blob/main/icons/Blender-Dark.svg] 
+# Dota 3Ds Tools for ![Blender](https://github.com/tandpfun/skill-icons/raw/main/icons/Blender-Dark.svg) **Blender**
+
 ### **Texture Scaling and Snap Tools Addon**
 
 This addon provides several useful functions for working with textures and meshes in Blender, including automation of the texture scaling process, snapping objects to an armature, and other auxiliary functions.
