@@ -1,4 +1,4 @@
-# Dota 3Ds Tools
+# Dota 3Ds Tools for **Blender** <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/Blender-Dark.svg" width="48" style="max-width: 100%;">
 ### **Addon для текстурного масштабирования и инструментов привязки**
 
 Этот аддон предоставляет несколько полезных функций для работы с текстурами и мешами в Blender, включая автоматизацию процесса масштабирования текстур, привязку объектов к арматуре и другие вспомогательные функции.
