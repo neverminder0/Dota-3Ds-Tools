@@ -1,5 +1,5 @@
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/neverminder0/Dota-3Ds-Tools/blob/main/README.ru.md)
-[![ru](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/neverminder0/Dota-3Ds-Tools/blob/main/README.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/neverminder0/Dota-3Ds-Tools/blob/main/README.md)
+[![ru](https://img.shields.io/badge/lang-ru-green.svg)](https://github.com/neverminder0/Dota-3Ds-Tools/blob/main/README.ru.md)
 # Dota-3Ds-Tools
 Blender Addon for snapping tools and texture scaling 
 ### **Texture Scaling and Snap Tools Addon**
