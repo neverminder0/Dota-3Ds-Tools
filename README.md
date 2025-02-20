@@ -1,6 +1,6 @@
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/neverminder0/Dota-3Ds-Tools/blob/main/README.md)
 [![ru](https://img.shields.io/badge/lang-ru-green.svg)](https://github.com/neverminder0/Dota-3Ds-Tools/blob/main/README.ru.md)
-# Dota 3Ds Tools for **Blender**<img src="https://github.com/tandpfun/skill-icons/raw/main/icons/Blender-Dark.svg" width="40"> ![image]({https://github.com/tandpfun/skill-icons/raw/main/icons/Blender-Dark.svg)
+# Dota 3Ds Tools for **Blender**<img src="https://github.com/tandpfun/skill-icons/raw/main/icons/Blender-Dark.svg" width="40"> ![image]({https://img.shields.io/badge/blender-%23F5792A.svg?style=for-the-badge&logo=blender&logoColor=white)
 
 
 ### **Texture Scaling and Snap Tools Addon**
