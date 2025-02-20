@@ -1,0 +1,29 @@
+schema_version = "1.0.0"
+id = "Dota_3Ds_Tool"
+version = "1.5.0"
+name = "3Ds Dota Tool"
+tagline = "3Ds Dota Tool"
+maintainer = "haseebahmad295 <quicktiptech@gmail.com>"
+type = "add-on"
+
+
+website = "https://github.com/haseebahmed295/Texture_Upscaler/issues"
+
+tags = ["Bake" , "Material"]
+
+blender_version_min = "4.2.0"
+
+license = [
+  "SPDX:GPL-3.0-or-later",
+]
+
+[permissions]
+files = "To save Upscaled Images"
+
+[build]
+paths_exclude_pattern = [
+  "/.git/",
+  "__pycache__/",
+  ".vscode/",
+]
+platforms = ["windows-x64", "macos-arm64", "linux-x64"]
