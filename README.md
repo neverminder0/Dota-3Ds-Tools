@@ -1,3 +1,5 @@
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/neverminder0/Dota-3Ds-Tools/blob/main/README.ru.md)
+[![ru](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/neverminder0/Dota-3Ds-Tools/blob/main/README.md)
 # Dota-3Ds-Tools
 Blender Addon for snapping tools and texture scaling 
 ### **Texture Scaling and Snap Tools Addon**
@@ -52,5 +54,3 @@ This addon provides several useful functions for working with textures and meshe
 - **GPU Device:** Select a GPU device to speed up the scaling process.
 - **Output Image Format:** Select the output image format (PNG, JPG, WEBP).
 
-#### **Additional Resources:**
-- **Information Panel:** Includes links to tutorials and a bug reporting channel.
