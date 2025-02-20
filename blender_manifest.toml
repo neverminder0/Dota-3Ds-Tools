@@ -3,11 +3,11 @@ id = "Dota_3Ds_Tool"
 version = "1.5.0"
 name = "3Ds Dota Tool"
 tagline = "3Ds Dota Tool"
-maintainer = "haseebahmad295 <quicktiptech@gmail.com>"
+maintainer = "neverminder"
 type = "add-on"
 
 
-website = "https://github.com/haseebahmed295/Texture_Upscaler/issues"
+website = "https://github.com/neverminder0/Dota-3Ds-Tools"
 
 tags = ["Bake" , "Material"]
 
