@@ -1,5 +1,5 @@
 bl_info = {
-    "name": "Combined Addon: Texture Upscaler & 3Ds Dota Fixer",
+    "name": "3Ds Dota Tool",
     "author": "neverminder",
     "version": (1, 5, 0),
     "blender": (3, 6, 0),

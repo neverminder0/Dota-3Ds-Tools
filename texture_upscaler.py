@@ -54,12 +54,11 @@ class TU_image_Panel(bpy.types.Panel):
 
             row = layout.row(align=True)
             row.prop(prop, 'replace_image', text='Replace in Materials', expand=True)
+
             row.prop(prop, "use_compress", icon="OBJECT_DATAMODE", text="")
             row.prop(prop, "use_custom_width", icon="MOD_LENGTH", text="")
-
             row = layout.row(align=True)
             row.prop(prop, "upscale_all", text="Upscale All Images")
-
             row = layout.row(align=True)
             row.label(text="Image Scale:")
             row.prop(prop, 'scale', text="")

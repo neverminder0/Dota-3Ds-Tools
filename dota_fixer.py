@@ -230,7 +230,7 @@ class PARENT_PT_Panel(bpy.types.Panel):
         layout.operator(PARENT_OT_ObjectsToArmature.bl_idname, text="Привязать объекты к скелету", icon='ARMATURE_DATA')
 
 class ClearPoseOperator(bpy.types.Operator):
-    """Сбросить позу (no bake)"""
+    """Сбросить позу и выбрать все кости"""
     bl_idname = "pose.clear_pose_and_select_all"
     bl_label = "Сбросить позу (без Rest Pose)"
     bl_options = {'REGISTER', 'UNDO'}
@@ -249,7 +249,7 @@ class ClearPoseOperator(bpy.types.Operator):
 
 
 class AnimationFixOperator(bpy.types.Operator):
-    """Применить фильтр Discontinuity"""
+    """Применить фильтр Discontinuity (Euler) ко всем ключам анимации"""
     bl_idname = "pose.animation_fix_v1"
     bl_label = "Animation Fix v1"
     bl_options = {'REGISTER', 'UNDO'}
