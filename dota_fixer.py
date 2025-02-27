@@ -2,7 +2,6 @@ import bpy
 from bpy.props import IntProperty, BoolProperty, EnumProperty, FloatProperty, PointerProperty
 
 def update_merge_threshold(self, context):
-    # Округляем значение до кратного 0.0001
     new_val = round(self.merge_threshold / 0.0001) * 0.0001
     if new_val != self.merge_threshold:
         self.merge_threshold = new_val
@@ -71,9 +70,6 @@ class ParentToolSettings(bpy.types.PropertyGroup):
         description="Автоматически применить все модификаторы после привязки",
         default=False,
     )
-
-
-
 
 def parent_objects_to_armature(context, settings):
     bpy.ops.object.mode_set(mode='OBJECT')
@@ -193,7 +189,6 @@ def parent_objects_to_armature(context, settings):
 
     return {'FINISHED'}
 
-
 class PARENT_OT_ObjectsToArmature(bpy.types.Operator):
     """Привязывает меши к выбранной арматуре с дополнительными настройками"""
     bl_idname = "object.parent_to_armature"
@@ -206,7 +201,6 @@ class PARENT_OT_ObjectsToArmature(bpy.types.Operator):
         if result == {'CANCELLED'}:
             self.report({'WARNING'}, "Ошибка: выберите арматуру с выделенными костями!")
         return result
-
 
 class PARENT_PT_Panel(bpy.types.Panel):
     """Панель для привязки объектов к скелету с дополнительными настройками"""
@@ -230,19 +224,13 @@ class PARENT_PT_Panel(bpy.types.Panel):
             box_options.prop(settings, "subdivision_render", text="Render")
         box_options.prop(settings, "clear_normals")
         box_options.prop(settings, "merge_by_distance")
-        '''if settings.merge_by_distance:
-            box_options.prop(settings, "merge_threshold", text="Merge порог")'''
         box_options.prop(settings, "apply_shade_smooth")
-        '''box_options.prop(settings, "remove_extraneous")
-        box_options.prop(settings, "parent_binding", text="Parenting type")
-        box_options.prop(settings, "apply_modifiers")'''
 
         layout.separator()
         layout.operator(PARENT_OT_ObjectsToArmature.bl_idname, text="Привязать объекты к скелету", icon='ARMATURE_DATA')
 
-
 class ClearPoseOperator(bpy.types.Operator):
-    """Сбросить позу и выбрать все кости"""
+    """Сбросить позу (no bake)"""
     bl_idname = "pose.clear_pose_and_select_all"
     bl_label = "Сбросить позу (без Rest Pose)"
     bl_options = {'REGISTER', 'UNDO'}
@@ -260,6 +248,66 @@ class ClearPoseOperator(bpy.types.Operator):
         return {'FINISHED'}
 
 
+class AnimationFixOperator(bpy.types.Operator):
+    """Применить фильтр Discontinuity"""
+    bl_idname = "pose.animation_fix_v1"
+    bl_label = "Animation Fix v1"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    def execute(self, context):
+        obj = context.object
+        if not obj or obj.type != 'ARMATURE':
+            self.report({'WARNING'}, "Выберите арматуру!")
+            return {'CANCELLED'}
+
+        # Переключиться в режим позы и выбрать все кости
+        bpy.ops.object.mode_set(mode='POSE')
+        bpy.ops.pose.select_all(action='SELECT')
+
+        # Сохраняем текущий тип области и регион
+        original_area_type = context.area.type
+        original_region = context.region
+
+        try:
+            # Меняем тип области на Graph Editor
+            context.area.type = 'GRAPH_EDITOR'
+
+            # Находим регион 'WINDOW' в Graph Editor
+            region = None
+            for r in context.area.regions:
+                if r.type == 'WINDOW':
+                    region = r
+                    break
+            if not region:
+                self.report({'ERROR'}, "Не удалось найти регион WINDOW в Graph Editor")
+                return {'CANCELLED'}
+
+            # Создаем override контекста
+            override = {
+                'window': context.window,
+                'screen': context.screen,
+                'area': context.area,
+                'region': region,
+                'active_object': obj,
+                'selected_objects': [obj],
+            }
+
+            # Применяем фильтр
+            with context.temp_override(**override):
+                bpy.ops.graph.select_all(action='SELECT')
+                bpy.ops.graph.euler_filter()
+
+        except Exception as e:
+            self.report({'ERROR'}, f"Ошибка: {str(e)}")
+            return {'CANCELLED'}
+
+        finally:
+            # Восстанавливаем исходный тип области
+            context.area.type = original_area_type
+            bpy.ops.object.mode_set(mode='OBJECT')
+        self.report({'INFO'}, "Фильтр применен")
+        return {'FINISHED'}
+
 class ClearPosePanel(bpy.types.Panel):
     """Панель для сброса позы"""
     bl_label = "Clear Animation and Pose"
@@ -272,10 +320,10 @@ class ClearPosePanel(bpy.types.Panel):
         layout = self.layout
         obj = context.object
         if obj and obj.type == 'ARMATURE':
-            layout.operator("pose.clear_pose_and_select_all", text="Сбросить позу")
+            layout.operator("pose.clear_pose_and_select_all", text="Сбросить позу", icon='TRACKING_BACKWARDS')
+            layout.operator("pose.animation_fix_v1", text="Animation Fix v1", icon='GRAPH')
         else:
             layout.label(text="Выберите арматуру")
-
 
 class PARENT_PT_InfoPanel(bpy.types.Panel):
     bl_label = "Информация"
@@ -287,22 +335,22 @@ class PARENT_PT_InfoPanel(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
-        layout.label(text="Информация (Addon v1.5.0)", icon='INFO')
+        layout.label(text="Информация (Addon v1.6.0)", icon='INFO')
         box_info = layout.box()
         box_info.label(text="Three Dimensions:", icon='URL')
         op = box_info.operator("wm.url_open", text="Обучалки по Dota 3D")
         op.url = "https://t.me/dimension3Ds"
         box_info.separator()
-        box_info.label(text="Баги и ошибки писать мне:", icon='ERROR')
+        box_info.label(text="Баги и предложение писать мне:", icon='ERROR')
         op = box_info.operator("wm.url_open", text="t.me/neverminder_3ds")
         op.url = "https://t.me/neverminder_3ds"
-
 
 classes_dota = [
     ParentToolSettings,
     PARENT_OT_ObjectsToArmature,
     PARENT_PT_Panel,
     ClearPoseOperator,
+    AnimationFixOperator,
     ClearPosePanel,
     PARENT_PT_InfoPanel,
 ]
@@ -312,12 +360,10 @@ def register():
         bpy.utils.register_class(cls)
     bpy.types.Scene.parent_tool_settings = PointerProperty(type=ParentToolSettings)
 
-
 def unregister():
     for cls in reversed(classes_dota):
         bpy.utils.unregister_class(cls)
     del bpy.types.Scene.parent_tool_settings
-
 
 if __name__ == "__main__":
     register()

@@ -1,6 +1,6 @@
 schema_version = "1.0.0"
 id = "Dota_3Ds_Tool"
-version = "1.5.0"
+version = "1.6.0"
 name = "3Ds Dota Tool"
 tagline = "3Ds Dota Tool"
 maintainer = "neverminder"
